@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 15px 20px;
+}
+
+.header {
+  margin-bottom: 15px;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #3b82f6;
+}
+
+.header p {
+  font-size: 0.9rem;
+  color: #a1a1aa;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  height: calc(100vh - 100px);
+}
+
+.editor-container, .review-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #333;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.panel-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #60a5fa;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+ .review-btn {
+ padding: 7px 15px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+}
+
+.review-btn:hover {
+  color: #ffffff;
+  background: #008cff;
+  border: 1px solid #008cff;
+  text-shadow: 0 0 5px #aca9a9, 0 0 10px #0c0c0c, 0 0 20px #ffffff;
+  box-shadow: 0 0 5px #008cff, 0 0 20px #1293fd, 0 0 50px #008cff,
+    0 0 100px #008cff;
+}
+
+/* .review-btn:disabled {
+  background-color: #4b5563;
+  cursor: not-allowed;
+}  */
+
+
+
+.review-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  line-height: 1.6;
+}
+
+.review-content h3 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  color: #38bdf8;
+}
+
+.review-content pre {
+  background-color: #0d1117;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.loading-text, .placeholder-text {
+  color: #9ca3af;
+  margin-top: 20px;
+  font-style: italic;
+}.history-sidebar {
+  width: 250px;
+  background-color: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.history-item {
+  background: #2d2d2d;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background: #3e3e3e;
+}
+
+.history-code-preview {
+  font-family: monospace;
+  font-size: 12px;
+  color: #4fc3f7;
+}
+
+.history-date {
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Uiverse Delete Button (.button) */
+.history-item .button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.history-item .svgIcon {
+  width: 10px;
+  transition-duration: 0.3s;
+}
+
+.history-item .svgIcon path {
+  fill: white;
+}
+
+.history-item .button:hover {
+  width: 80px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+  gap: 0;
+}
+
+.history-item .button:hover .bin-bottom {
+  width: 30px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+}
+
+.history-item .bin-top {
+  transform-origin: bottom right;
+}
+
+.history-item .button:hover .bin-top {
+  width: 30px;
+  transition-duration: 0.3s;
+  transform: translateY(60%) rotate(160deg);
+}
+
+.history-item .button::before {
+  position: absolute;
+  top: -15px;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.history-item .button:hover::before {
+  font-size: 11px;
+  opacity: 1;
+  transform: translateY(24px);
+  transition-duration: 0.3s;
+}
+
+
+
