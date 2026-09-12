@@ -1,7 +1,9 @@
 // 1. Packages Import Karein
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 // 2. Database & Models Import Karein
 const connectDB = require('./config/db');
