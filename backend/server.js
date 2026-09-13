@@ -16,7 +16,7 @@ const generateReview = require('./services/ai.service');
 const app = express();
 
 // 5. Middlewares Setup Karein
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
 // 6. Connect to MongoDB Database

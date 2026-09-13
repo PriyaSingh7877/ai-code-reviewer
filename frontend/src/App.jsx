@@ -34,7 +34,7 @@ function App() {
     setReview('');
     
     try {
-      const response = await axios.post('http://localhost:5000/api/review', { code });
+      const response = await axios.post('https://ai-code-reviewer-dk2b.onrender.com/api/review', { code });
       setReview(response.data.review);
       fetchHistory(); // Naya review aane ke baad history list update karein
     } catch (err) {
