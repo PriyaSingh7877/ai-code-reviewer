@@ -1,7 +1,6 @@
 const { GoogleGenAI } = require('@google/genai');
 require('dotenv').config();
 
-// Fix: exact variable name 'GEMINI_API_KEY' pass karein
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 async function generateReview(code) {
@@ -19,12 +18,30 @@ async function generateReview(code) {
   \`\`\`
   `;
 
-  const response = await ai.models.generateContent({
-    model: 'gemini-3.6-flash',
-    contents: prompt,
-  });
+  // Helper function to call API with model fallback
+  const callGemini = async (modelName) => {
+    return await ai.models.generateContent({
+      model: modelName,
+      contents: prompt,
+    });
+  };
 
-  return response.text;
+  try {
+    // 1. Try with stable gemini-2.5-flash model
+    const response = await callGemini('gemini-2.5-flash');
+    return response.text;
+  } catch (error) {
+    console.warn('Primary model failed/busy, trying fallback model...', error.message);
+    
+    try {
+      // 2. Fallback to gemini-1.5-pro if flash model is busy (503)
+      const fallbackResponse = await callGemini('gemini-1.5-pro');
+      return fallbackResponse.text;
+    } catch (fallbackError) {
+      console.error('Error generating review:', fallbackError);
+      throw fallbackError;
+    }
+  }
 }
 
 module.exports = generateReview;

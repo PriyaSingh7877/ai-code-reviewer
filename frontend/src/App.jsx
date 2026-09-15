@@ -33,15 +33,20 @@ function App() {
     if (!code.trim()) return alert('Please enter some code first!');
 
     setLoading(true);
-    setReview('');
+    setReview('⏳ Waking up server & analyzing code... (It may take up to 45 seconds if server was sleeping)');
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/review`, { code });
+      // Timeout increased to allow Render free tier to wake up
+      const response = await axios.post(
+        `${API_BASE_URL}/api/review`,
+        { code },
+        { timeout: 60000 } // 60 seconds timeout
+      );
       setReview(response.data.review);
-      fetchHistory(); // Naya review aane ke baad history list update karein
+      fetchHistory();
     } catch (err) {
       console.error(err);
-      setReview('❌ Error fetching review. Please check your network or try again.');
+      setReview('❌ Server took too long to respond. Please click "Review Code" once again as the server is waking up.');
     } finally {
       setLoading(false);
     }
