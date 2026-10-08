@@ -1,7 +1,7 @@
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 require('dotenv').config();
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 async function generateReview(code) {
   const prompt = `
@@ -18,25 +18,24 @@ async function generateReview(code) {
   \`\`\`
   `;
 
-  // Helper function to call API with model fallback
   const callGemini = async (modelName) => {
-    return await ai.models.generateContent({
-      model: modelName,
-      contents: prompt,
-    });
+    const model = genAI.getGenerativeModel({ model: modelName });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
   };
 
   try {
-    // 1. Try with stable gemini-2.5-flash model
-    const response = await callGemini('gemini-2.5-flash');
-    return response.text;
+    // 1. Primary Model
+    const text = await callGemini('gemini-2.5-flash');
+    return text;
   } catch (error) {
-    console.warn('Primary model failed/busy, trying fallback model...', error.message);
+    console.warn('Primary model failed, trying fallback...', error.message);
     
     try {
-      // 2. Fallback to gemini-1.5-pro if flash model is busy (503)
-      const fallbackResponse = await callGemini('gemini-1.5-pro');
-      return fallbackResponse.text;
+      // 2. Fallback Model
+      const fallbackText = await callGemini('gemini-2.0-flash');
+      return fallbackText;
     } catch (fallbackError) {
       console.error('Error generating review:', fallbackError);
       throw fallbackError;
