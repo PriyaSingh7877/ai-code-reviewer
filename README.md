@@ -6,7 +6,7 @@ An automated, full-stack AI-powered code review application built with the MERN 
 
 ## 📸 Application Screenshot & Demo
 
-![AI Code Reviewer Preview](./assets/photo.png)
+![AI Code Reviewer Preview](./frontend/src/assets/photo.png)
 
 ---
 
